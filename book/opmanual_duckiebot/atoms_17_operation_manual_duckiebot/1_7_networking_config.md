@@ -171,14 +171,26 @@ Restart Avahi by running the command
     duckiebot $ sudo service avahi-daemon restart
 
 
+
 Symptom: (for Arch users only) the Avahi module isn't installed
 
-Resolution: Install Avahi with the following command `sudo pacman -S avahi`, then install the nss-mdns package with the command `sudo pacman -S nss-mdns`.
-Edit the `/etc/nsswitch.conf` file and change the hosts line to include `mdns_minimal [NOTFOUND=return]` before `resolve` and `dns`, it should look something like
+Resolution: Install Avahi with the following command:
+
+    sudo pacman -S avahi
+
+Install the nss-mdns package with the command
+
+    sudo pacman -S nss-mdns
+
+Edit the `/etc/nsswitch.conf` file and change the hosts line to include
+
+    mdns_minimal [NOTFOUND=return] before `resolve` and `dns`
+
+it should look something like
 
     hosts: ... mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] dns ...
 
-Restart the avahi-daemon.service service when you are done and the local hostname resolution should work
+Restart the avahi-daemon.service service
 
 ## I can SSH to the Duckiebot but not without a password
 
