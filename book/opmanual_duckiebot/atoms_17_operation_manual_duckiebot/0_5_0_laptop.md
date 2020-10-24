@@ -51,10 +51,10 @@ See: For instructions, see for example [this online tutorial][tutorial].
 Installs pip3, git, git-lfs, curl, wget:
 
     laptop $ sudo apt install -y python3-pip git git-lfs curl wget
-    
+
 Symptom: You see this output `E: Unable to locate package python3-pip`
 
-Resolution: You will need to do `sudo apt update` 
+Resolution: You will need to do `sudo apt update`
 
 ### Docker {#laptop-setup-ubuntu-18-docker}
 
@@ -89,6 +89,11 @@ You can verify the command install by typing:
     laptop $ which dts
 
 and it should output something like `/home/USER/.local/bin/dts`.
+
+Symptom: You see the error `dts command not found`
+
+Resolution: Open the terminal and execute the command: `nano ~/.bashrc`, if the file is empty try `nano ~/.bash_aliases`, add the line `alias dts='python /home/YOURUSERNAME/.local/bin/dts'` before `PS1='[\u@\h \W]\$'` then save, close, and reopen the terminal, typing dts should now open the duckietown shell
+
 
 ### Other optional configuration
 
