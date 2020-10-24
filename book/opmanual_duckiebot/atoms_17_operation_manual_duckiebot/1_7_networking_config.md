@@ -214,7 +214,7 @@ It will generate a key for you, if it doesn't exists.
 
 If there isn't any ssh key file in the `/.ssh/` directory create the file with
 
-    $ nano /home/user/.ssh/DT18_key_00
+    $ touch /home/user/.ssh/DT18_key_00
 
 Then copy and paste the following in the file:
 
@@ -258,11 +258,15 @@ Then copy and paste the following in the file:
     -----END OPENSSH PRIVATE KEY-----
 
 
-After creating the new file use the command `chmod 600 /home/user/.ssh/DT18_key_00` to correctly configure the permissions for the file
+After creating the new file use the command
+
+    chmod 600 /home/user/.ssh/DT18_key_00
+
+to correctly configure the permissions for the file
 
 If you are still unable to connect to the duckiebot without a password try using the following command to ssh into it anyways:
 
-    `ssh duckie@![hostname].local`
+    ssh duckie@![hostname].local
 
 Duckie is the default username, if you specified a different username in the `init_sd_card` command, type your username instead of duckie.
 
