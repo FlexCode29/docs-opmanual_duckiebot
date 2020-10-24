@@ -1,10 +1,10 @@
 # Duckiebot SD Card Initialization {#setup-duckiebot status=ready}
 
-This page is for the `DB18` configuration and above (including Jetson Nano configurations). 
+This page is for the `DB18` configuration and above (including Jetson Nano configurations).
 
 <div class='requirements' markdown="1">
 
-Requires: An SD card of size at least 32 GB. 
+Requires: An SD card of size at least 32 GB.
 
 Requires: A computer with a **Ubuntu OS** (for flashing the SD card), an internet connection, an SD card reader, and 16 GB of free space.
 
@@ -32,10 +32,10 @@ Warning: this currently only works on Ubuntu. Mac is not supported.
 
 Warning: on Ubuntu 16, you need to remove and re-insert the SD card. On Ubuntu 18 or above this is not necessary.
 
-Before you start initializing SD card, make sure you have setup your dts token in the duckietown shell. To do that: 
+Before you start initializing SD card, make sure you have setup your dts token in the duckietown shell. To do that:
 
     laptop $ dts tok set
-    
+
 It will bring you to a website where you will login into your duckietown account, and you can get your token there. You can find more information [here](#dt-account-find-token)
 
 Plug the SD card in the computer using the card reader.
@@ -51,12 +51,12 @@ The basic options are:
     --hostname         Hostname of the device to flash. This is required.
     --wifi             default: duckietown:quackquack
     --country          default: US
-    --type             The type of your device. Types are `duckiebot` (default), 
+    --type             The type of your device. Types are `duckiebot` (default),
                        `watchtower`, `traffic_light`.
-    --configuration    The configuration of your robot. This is associated with 
+    --configuration    The configuration of your robot. This is associated with
                        `--type` option. E.g. `DB-beta`, `DB20`, `DB19`, or `DB18`.
 
-Note: the default username and password for all duckiebots are "duckie" and "quackquack", respectively. 
+Note: the default username and password for all duckiebots are "duckie" and "quackquack", respectively.
 
 If you plan on connecting with the Duckiebot over different networks (e.g. at home and in class), you can list them like that (note there should be no space after the commas):
 
@@ -109,8 +109,8 @@ For a full list of the options, run
 
     laptop $ dts init_sd_card --help
 
-Example initialization for the `DB-beta` using wifi network "duckienet" with password "quackquack". 
-    
+Example initialization for the `DB-beta` using wifi network "duckienet" with password "quackquack".
+
     laptop $ dts init_sd_card --type duckiebot --configuration DB-beta --country CH --hostname studentduck --wifi duckienet:quackquack
 
 After you run the `dts init_sd_card` command with your options follow the instructions that appear on screen. Select the drive with the correct size (usually `/dev/mmcblk` or `/dev/sdc`) by pressing <kbd>Enter</kbd>.
@@ -149,9 +149,9 @@ For Jetson Nano:
 
 - The procedure will ask to accept the conditions for use. When asked "Do you accept? (a=Accept, n=Reject, r=Read License) \[n]: " select <kbd>r</kbd> to read the license, and then <kbd>a</kbd> to accept.
 
-- After the image is downloaded, you will have to enter your `sudo` password. 
+- After the image is downloaded, you will have to enter your `sudo` password.
 
-- For the Jetson Nano board, the drive selection (e.g. /dev/sda) is performed after the image is downloaded. 
+- For the Jetson Nano board, the drive selection (e.g. /dev/sda) is performed after the image is downloaded.
 
 On successful end of the procedure, the drives will be automatically ejected and you can just remove the SD card from your laptop.
 
@@ -167,12 +167,16 @@ Symptom: On Ubuntu 16, it prompts with errors about directories not mounted
 
 Resolution: If the procedure fails with errors about directories not mounted, be patient and do it again, this time leaving the SD card in.
 
+Symptom: The procedure fails with errors about failing to inflate.
+
+Resolution: This happens when your swap partition (`/tmp`) is used to store the system image for the duckiebot. Specify a directory other that `/tmp/` with the option `--workdir` in the `init_sd_card` command, the specified directory needs at least 11 free GBs of memory.
+
 Symptom: The flashing procedure failes with a `Bad archive` error when trying to flash the Hypriot image
 
 Resolution: This happens when the downloaded zip for Hypriot is incomplete or corrupt. Delete the zip file by running the following command and try the procedure again. Also check if your computer has enough storage space.
 
     laptop $ rm /tmp/duckietown/hypriotos*
-    
+
 Symptom: The verification process fails with error `Please set up a token using "dts tok set"`.
 
 Resolution: Redo the Duckietown Token setup procedure [](#dt-account).
@@ -192,7 +196,7 @@ Open a terminal and run the command
 ```
 laptop $ dts fleet discover
 ```
-For the Jetson Nano board, the first boot of the Duckiebot will take several minutes, and then it will reboot automatically. Only after it reboots you will be able to ssh into the bot. This can be monitored using an external monitor, or by running the fleet discover command after successful rebooting. 
+For the Jetson Nano board, the first boot of the Duckiebot will take several minutes, and then it will reboot automatically. Only after it reboots you will be able to ssh into the bot. This can be monitored using an external monitor, or by running the fleet discover command after successful rebooting.
 
 Note: If the command above returns an error about the library `zeroconf` being
 missing, run `pip3 install zeroconf` and retry.
@@ -245,7 +249,7 @@ Resolution: [Initialize the SD card](#setup-duckiebot) if not done already. If p
 
 Symptom: I cannot ping the duckiebot.
 
-Resolution: Check the [networking section](#duckiebot-network) of the book to see if your networking is good! 
+Resolution: Check the [networking section](#duckiebot-network) of the book to see if your networking is good!
 
 Symptom: I am not sure whether the Duckiebot is properly initialized.
 
@@ -255,14 +259,14 @@ Symptom: The LEDs light up in a variety of colors when the battery is plugged in
 
 Resolution: The LEDs of the Duckiebot should light up in white as soon as you power the Duckiebot. If the LEDs turn on and shine in any different color than white, probably the code on the microcontroller is corrupted. You can reflash it using the procedure in [](#reflash-microcontroller).
 
-Symptom: On first boot, the lights of the Duckiebot do not turn white (might be blue). 
+Symptom: On first boot, the lights of the Duckiebot do not turn white (might be blue).
 
-Resolution: Run the following commands. 
+Resolution: Run the following commands.
 
     laptop $ dts duckiebot update <hostname>
-    
+
     duckiebot $ dt-autoboot
-    
+
 ## SSH to the Duckiebot {#setup-duckiebot-ssh}
 
 Next, try to log in using SSH, using
@@ -294,4 +298,4 @@ Then disconnect the USB cable (from the large connector next to the battery).
 
 Warning: If you disconnect frequently the cable at the Raspberry Pi's end, you might damage the port.
 
-Warning: Pressing the battery button does not shut down the power to the Duckiebot, it only activates the battery. If not in use anymore, disconnect the cables. The battery will automatically shut down if no load is detected over a period of 10 mins. 
+Warning: Pressing the battery button does not shut down the power to the Duckiebot, it only activates the battery. If not in use anymore, disconnect the cables. The battery will automatically shut down if no load is detected over a period of 10 mins.
