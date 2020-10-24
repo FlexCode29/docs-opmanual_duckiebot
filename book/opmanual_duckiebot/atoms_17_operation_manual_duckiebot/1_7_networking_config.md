@@ -170,6 +170,16 @@ Restart Avahi by running the command
 
     duckiebot $ sudo service avahi-daemon restart
 
+
+Symptom: (for Arch users only) the Avahi module isn't installed
+
+Resolution: Install Avahi with the following command `sudo pacman -S avahi`, then install the nss-mdns package with the command `sudo pacman -S nss-mdns`.
+Edit the `/etc/nsswitch.conf` file and change the hosts line to include `mdns_minimal [NOTFOUND=return]` before `resolve` and `dns`, it should look something like
+
+    hosts: ... mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] dns ...
+
+Restart the avahi-daemon.service service when you are done and the local hostname resolution should work
+
 ## I can SSH to the Duckiebot but not without a password
 
 Check the file `~.ssh/config` and make sure you add your `ssh` key there, in case it doesn't exists.
@@ -189,6 +199,62 @@ Do:
     $ ssh-keygen -f "/home/user/.ssh/known_hosts" -R hostname.local
 
 It will generate a key for you, if it doesn't exists.
+
+If there isn't any ssh key file in the `/.ssh/` directory create the file with
+
+    $ nano /home/user/.ssh/DT18_key_00
+
+Then copy and paste the following in the file:
+
+    -----BEGIN OPENSSH PRIVATE KEY-----
+    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
+    -----END OPENSSH PRIVATE KEY-----
+
+
+After creating the new file use the command `chmod 600 /home/user/.ssh/DT18_key_00` to correctly configure the permissions for the file
+
+If you are still unable to connect to the duckiebot without a password try using the following command to ssh into it anyways:
+
+    `ssh duckie@![hostname].local`
+
+Duckie is the default username, if you specified a different username in the `init_sd_card` command, type your username instead of duckie.
+
+When promted for the password type `quackquack`or the password specified in the `init_sd_card` command if you specified one.
 
 ## Unable to communicate with Docker
 
